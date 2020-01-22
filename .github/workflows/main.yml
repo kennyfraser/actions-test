@@ -11,8 +11,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
 
+      - name: Create
+        run: echo no | avdmanager create avd -n test -k "system-images;android-25;google_apis;armeabi-v7a" -f
+
       - name: List
         run: $ANDROID_HOME/tools/bin/avdmanager list avd
 
       - name: Run
-        run: $ANDROID_HOME/emulator/emulator -avd 5.4_FWVGA_API_28
+        run: $ANDROID_HOME/emulator/emulator -avd test
