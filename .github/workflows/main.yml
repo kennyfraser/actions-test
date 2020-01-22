@@ -1,0 +1,18 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: List
+        run: $ANDROID_HOME/tools/bin/avdmanager list avd
+
+      - name: Run
+        run: $ANDROID_HOME/emulator/emulator -avd 5.4_FWVGA_API_28
