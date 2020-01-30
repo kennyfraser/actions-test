@@ -11,8 +11,18 @@ jobs:
       - name: Slack Notification
         uses: 8398a7/action-slack@v2
         with:
-          status: ${{ job.status }}
-          fields: repo,message,action,author
+          status: custom
+          payload: |
+            {
+              text: "Custom Field Check",
+              attachments: [{
+                "author_name": "8398a7@action-slack", // json
+                fallback: 'fallback',
+                color: 'good',
+                title: 'CI Result',
+                text: '\n\n\n\n\n\n\n\n\n\n\n\Succeeded',
+              }]
+            }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_CORE_DEV_ALERTS }}
