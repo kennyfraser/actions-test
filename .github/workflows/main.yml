@@ -8,17 +8,11 @@ jobs:
     runs-on: macOS-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v1
-
-      - name: Download SDK
-        run: $ANDROID_HOME/tools/bin/sdkmanager --install "system-images;android-29;default;x86"
-
-      - name: Create
-        run: echo no | $ANDROID_HOME/tools/bin/avdmanager create avd -n test -k "system-images;android-29;default;x86" -f
-
-      - name: List
-        run: $ANDROID_HOME/tools/bin/avdmanager list avd
-
-      - name: Run
-        run: $ANDROID_HOME/emulator/emulator -avd test
+      - name: Slack Notification
+        uses: 8398a7/action-slack@v2
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,action,author
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_CORE_DEV_ALERTS }}
+        if: always() # Pick up events even if the job fails or is canceled.
