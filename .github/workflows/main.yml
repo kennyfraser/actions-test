@@ -8,13 +8,21 @@ jobs:
     runs-on: macOS-latest
 
     steps:
+      - uses: rlespinasse/github-slug-action@master
+      - name: Print slug variables
+        run: |
+          echo ${{ env.GITHUB_REF_SLUG }}
+          echo ${{ env.GITHUB_HEAD_REF_SLUG }}
+          echo ${{ env.GITHUB_BASE_REF_SLUG }}
+          echo ${{ env.GITHUB_SHA_SHORT }}
+    
       - name: Slack Notification
         uses: 8398a7/action-slack@v2
         with:
           status: custom
           payload: |
             {
-              text: "${{github.actor}} <https://github.com/${{github.repository}}/commit/${{github.sha}}/checks|action> <https://github.com/${{github.repository}}/tree/${{github.ref##*/}}|${{github.ref##*/}}>",
+              text: "${{github.actor}} <https://github.com/${{github.repository}}/commit/${{github.sha}}/checks|action> <https://github.com/${{github.repository}}/tree/${{env.GITHUB_HEAD_REF_SLUG}}|${{env.GITHUB_HEAD_REF_SLUG}}>",
             }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
