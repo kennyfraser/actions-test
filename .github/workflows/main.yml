@@ -9,4 +9,4 @@ jobs:
 
     steps:
       - name: Test
-        run: echo "${{ job.status == 'success' && 'yes' || 'no' }}"
+        run: echo "${{ job.status == 'failure' && 'fail' || job.status == 'cancelled' && 'cancel' || job.status == 'success' && 'success!' }}"
