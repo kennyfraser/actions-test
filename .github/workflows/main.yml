@@ -14,7 +14,7 @@ jobs:
           status: custom
           payload: |
             {
-              text: "Action:<https://github.com/${{github.repository}}/commit/${{github.sha}}/checks|action> Branch:<https://github.com/${{github.repository}}/tree/${{github.ref}}|${{github.ref}}> ${{github.actor}}",
+              text: "@${{github.actor}}: <https://github.com/${{github.repository}}/commit/${{github.sha}}/checks|action> ${{job.status}} for <https://github.com/${{github.repository}}/tree/${{github.ref}}|${{github.ref}}>",
             }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
