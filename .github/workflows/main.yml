@@ -8,5 +8,15 @@ jobs:
     runs-on: macOS-latest
 
     steps:
-      - name: Test
-        run: echo "${{ job.status == 'failure' && 'fail' || job.status == 'cancelled' && 'cancel' || job.status == 'success' && 'success!' }}"
+      - name: Slack Notification
+        uses: 8398a7/action-slack@v2
+        with:
+          status: custom
+          payload: |
+            {
+              text: "${{ job.status == ':octagonal_sign:' && 'fail' || job.status == 'cancelled' && ':x:' || job.status == 'success' && ':white_check_mark:' }} ${{job.status}}: Running <https://github.com/${{github.repository}}/commit/${{github.sha}}/checks|test> on <https://github.com/${{github.repository}}/tree/${{github.ref}}|${{github.ref}}> (${{github.actor}})",
+            }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_CORE_DEV_ALERTS }}
+        if: always()
