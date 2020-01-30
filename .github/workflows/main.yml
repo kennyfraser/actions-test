@@ -20,7 +20,7 @@ jobs:
                 fallback: 'fallback',
                 color: 'good',
                 title: 'CI Result',
-                text: "\n \n \n \n \n \n \n Succeeded",
+                text: "a \n \n \n \n \n \n \n Succeeded",
               }]
             }
         env:
