@@ -14,7 +14,7 @@ jobs:
           status: custom
           payload: |
             {
-              text: "${author.name}<${author.email}> <https://github.com/${owner}/${repo}/commit/${sha}|${sha}> | <https://github.com/${owner}/${repo}|${owner}/${repo}> | <https://github.com/${owner}/${repo}/commit/${sha}/checks|action>,
+              text: "${author.name} https://github.com/${owner}/${repo}/commit/${sha}|${sha} | https://github.com/${owner}/${repo}|${owner}/${repo} | https://github.com/${owner}/${repo}/commit/${sha}/action,
             }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
