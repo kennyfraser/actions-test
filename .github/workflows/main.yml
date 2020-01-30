@@ -14,7 +14,7 @@ jobs:
           status: custom
           payload: |
             {
-              text: "Custom Field Check",
+              text: "Custom Field Checkline1\nline2\nline3\nline4\nline5\nline5\n",
             }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
