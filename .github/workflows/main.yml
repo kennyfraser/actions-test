@@ -8,41 +8,22 @@ jobs:
     runs-on: macOS-latest
 
     steps:
+
+      - name: Extract branch name
+        shell: bash
+        run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
+      - name: Test
+        run: echo "${BRANCH_NAME}"
+  
       - name: Slack Notification
         uses: 8398a7/action-slack@v2
         with:
           status: custom
           payload: |
             {
-              text: ":white_check_mark: ${{job.status}}: Running <https://github.com/${{github.repository}}/commit/${{github.sha}}/checks|test> on <https://github.com/${{github.repository}}/tree/${{github.ref}}|${{github.ref}}> (${{github.actor}})",
+              text: ":white_check_mark: ${{job.status}}: Running <https://github.com/${{github.repository}}/commit/${{github.sha}}/checks|test> on <https://github.com/${{github.repository}}/tree/${{BRANCH_NAME}}|${{BRANCH_NAME}}> (${{github.actor}})",
             }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_CORE_DEV_ALERTS }}
         if: success()
-
-      - name: Slack Notification
-        uses: 8398a7/action-slack@v2
-        with:
-          status: custom
-          payload: |
-            {
-              text: ":x: ${{job.status}}: Running <https://github.com/${{github.repository}}/commit/${{github.sha}}/checks|test> on <https://github.com/${{github.repository}}/tree/${{github.ref}}|${{github.ref}}> (${{github.actor}})",
-            }
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_CORE_DEV_ALERTS }}
-        if: failure()
-
-      - name: Slack Notification
-        uses: 8398a7/action-slack@v2
-        with:
-          status: custom
-          payload: |
-            {
-              text: ":octagonal_sign: ${{job.status}}: Running <https://github.com/${{github.repository}}/commit/${{github.sha}}/checks|test> on <https://github.com/${{github.repository}}/tree/${{github.ref}}|${{github.ref}}> (${{github.actor}})",
-            }
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_CORE_DEV_ALERTS }}
-        if: cancelled()
