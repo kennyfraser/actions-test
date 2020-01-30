@@ -15,13 +15,6 @@ jobs:
           payload: |
             {
               text: "Custom Field Check",
-              attachments: [{
-                "author_name": "8398a7@action-slack", // json
-                fallback: 'fallback',
-                color: 'good',
-                title: 'CI Result',
-                text: "line1\nline2\nline3\nline4\nline5\nline5\n",
-              }]
             }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
