@@ -14,7 +14,7 @@ jobs:
           status: custom
           payload: |
             {
-              text: "${{job.status}}: Running <https://github.com/${{github.repository}}/commit/${{github.sha}}/checks|test> on <https://github.com/${{github.repository}}/tree/${{github.ref}}|${{github.ref}}> (${{github.actor}})",
+              text: "${{job.status}}: Running <https://github.com/${{github.repository}}/commit/${{github.sha}}/checks|test> on <https://github.com/${{github.repository}}/tree/${{github.ref}}|${{github.ref}}> (${{github.actor}} *KENNY* - Not _Mark_)",
             }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
